@@ -7,6 +7,14 @@ export type SelectionFrameNode = {
   height: number
 }
 
+export type RawIcon = {
+  nodeId: string
+  name: string
+  svg: string
+  width: number
+  height: number
+}
+
 export type SelectionFramesPayload = {
   nodes: SelectionFrameNode[]
 }
@@ -19,4 +27,14 @@ export interface SelectionFramesEvent extends EventHandler {
 export interface UIReadyEvent extends EventHandler {
   name: 'UI_READY'
   handler: () => void
+}
+
+export interface ExportSvgsRequestEvent extends EventHandler {
+  name: 'EXPORT_SVGS_REQUEST'
+  handler: () => void
+}
+
+export interface ExportSvgsResultEvent extends EventHandler {
+  name: 'EXPORT_SVGS_RESULT'
+  handler: (payload: { icons: RawIcon[]; errors: Array<{ nodeId: string; message: string }> }) => void
 }

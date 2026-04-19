@@ -1,6 +1,6 @@
 import { h } from 'preact'
 
-import type { SelectionFrameNode } from '../types/events.js'
+import type { SelectionFrameNode } from '../../types/events.js'
 
 type SelectionRowProps = {
   node: SelectionFrameNode

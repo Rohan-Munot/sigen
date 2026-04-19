@@ -5,3 +5,5 @@
 /manifest.json
 node_modules/
 src/output.css
+
+/.cursor

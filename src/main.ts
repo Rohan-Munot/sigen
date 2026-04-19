@@ -1,12 +1,20 @@
-import { on, showUI } from '@create-figma-plugin/utilities'
-
+import { emit, on, showUI } from '@create-figma-plugin/utilities'
 import { pushSelectionFrames } from './main/push-selection.js'
-import type { UIReadyEvent } from './types/events.js'
+import { exportSvgs } from './main/export-svg.js'
+import type {
+  UIReadyEvent,
+  ExportSvgsRequestEvent,
+  ExportSvgsResultEvent
+} from './types/events.js'
 
 export default function () {
-  const options = { width: 380, height: 420 }
-  showUI(options)
+  showUI({ width: 380, height: 420 })
 
   figma.on('selectionchange', pushSelectionFrames)
   on<UIReadyEvent>('UI_READY', pushSelectionFrames)
+
+  on<ExportSvgsRequestEvent>('EXPORT_SVGS_REQUEST', async () => {
+    const result = await exportSvgs()
+    emit<ExportSvgsResultEvent>('EXPORT_SVGS_RESULT', result)
+  })
 }
