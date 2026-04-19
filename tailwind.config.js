@@ -5,5 +5,5 @@ export default {
     extend: {},
   },
   plugins: [],
-  darkMode: ['class', '.figma-dark']
+  darkMode: false
 }

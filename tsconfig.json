@@ -2,6 +2,7 @@
   "extends": "@create-figma-plugin/tsconfig",
   "compilerOptions": {
     "typeRoots": ["node_modules/@figma", "node_modules/@types"],
+    "types": ["plugin-typings"],
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",
   },
