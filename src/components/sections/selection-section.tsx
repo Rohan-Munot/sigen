@@ -7,10 +7,11 @@ import { SelectionList } from '../selection/selection-list.js'
 
 type SelectionSectionProps = {
   nodes: SelectionFrameNode[]
+  invalidNodeIds: string[]
 }
 
 export function SelectionSection (props: SelectionSectionProps) {
-  const { nodes } = props
+  const { nodes, invalidNodeIds } = props
 
   return (
     <section class="flex flex-col gap-2">
@@ -26,7 +27,11 @@ export function SelectionSection (props: SelectionSectionProps) {
       </header>
 
       <div class="flex max-h-48 flex-col overflow-y-auto bg-white [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {nodes.length === 0 ? <EmptySelection /> : <SelectionList nodes={nodes} />}
+        {nodes.length === 0 ? (
+          <EmptySelection />
+        ) : (
+          <SelectionList nodes={nodes} invalidNodeIds={invalidNodeIds} />
+        )}
       </div>
     </section>
   )

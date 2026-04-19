@@ -5,19 +5,30 @@ import type { SelectionFrameNode } from '../../types/events.js'
 type SelectionRowProps = {
   node: SelectionFrameNode
   index: number
+  hasError: boolean
 }
 
 export function SelectionRow (props: SelectionRowProps) {
-  const { node, index } = props
+  const { node, index, hasError } = props
 
   return (
-    <div class="flex cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 transition-colors hover:bg-orange-50 active:scale-[0.995]">
-      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-orange-100 text-[10px] font-medium text-orange-700">
+    <div
+      class={`flex cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 transition-colors active:scale-[0.995] hover:bg-orange-50`}
+    >
+      <span
+        class={`flex h-5 w-5 shrink-0 items-center justify-center rounded text-[10px] font-medium ${
+          hasError
+            ? 'bg-red-100 text-red-700'
+            : 'bg-orange-100 text-orange-700'
+        }`}
+      >
         {index + 1}
       </span>
 
       <span
-        class="min-w-0 flex-1 truncate text-[12px] text-neutral-800"
+        class={`min-w-0 flex-1 truncate text-[12px] ${
+          hasError ? 'text-red-700' : 'text-neutral-800'
+        }`}
         title={node.name}
       >
         {node.name}
@@ -26,6 +37,12 @@ export function SelectionRow (props: SelectionRowProps) {
       <span class="shrink-0 font-mono text-[11px] tabular-nums text-neutral-400">
         {formatNumber(node.width)}×{formatNumber(node.height)}
       </span>
+
+      {hasError ? (
+        <span class="shrink-0 rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
+          Invalid
+        </span>
+      ) : null}
     </div>
   )
 }
