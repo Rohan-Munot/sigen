@@ -15,6 +15,8 @@ export type RawIcon = {
   height: number
 }
 
+export type ExportFramework = 'react' | 'react-native'
+
 export type SelectionFramesPayload = {
   nodes: SelectionFrameNode[]
 }
@@ -31,10 +33,14 @@ export interface UIReadyEvent extends EventHandler {
 
 export interface ExportSvgsRequestEvent extends EventHandler {
   name: 'EXPORT_SVGS_REQUEST'
-  handler: () => void
+  handler: (payload: { frameworks: ExportFramework[] }) => void
 }
 
 export interface ExportSvgsResultEvent extends EventHandler {
   name: 'EXPORT_SVGS_RESULT'
-  handler: (payload: { icons: RawIcon[]; errors: Array<{ nodeId: string; message: string }> }) => void
+  handler: (payload: {
+    icons: RawIcon[]
+    errors: Array<{ nodeId: string; message: string }>
+    frameworks: ExportFramework[]
+  }) => void
 }

@@ -5,15 +5,18 @@ import type { SelectionFrameNode } from '../../types/events.js'
 type SelectionRowProps = {
   node: SelectionFrameNode
   index: number
-  hasError: boolean
+  errorMessage?: string
 }
 
 export function SelectionRow (props: SelectionRowProps) {
-  const { node, index, hasError } = props
+  const { errorMessage, node, index } = props
+  const hasError = errorMessage !== undefined
 
   return (
     <div
-      class={`flex cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 transition-colors active:scale-[0.995] hover:bg-orange-50`}
+      class={`flex cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 transition-colors active:scale-[0.995] ${
+        hasError ? 'hover:bg-red-50' : 'hover:bg-orange-50'
+      }`}
     >
       <span
         class={`flex h-5 w-5 shrink-0 items-center justify-center rounded text-[10px] font-medium ${

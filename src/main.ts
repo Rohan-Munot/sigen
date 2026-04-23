@@ -13,8 +13,11 @@ export default function () {
   figma.on('selectionchange', pushSelectionFrames)
   on<UIReadyEvent>('UI_READY', pushSelectionFrames)
 
-  on<ExportSvgsRequestEvent>('EXPORT_SVGS_REQUEST', async () => {
+  on<ExportSvgsRequestEvent>('EXPORT_SVGS_REQUEST', async (payload) => {
     const result = await exportSvgs()
-    emit<ExportSvgsResultEvent>('EXPORT_SVGS_RESULT', result)
+    emit<ExportSvgsResultEvent>('EXPORT_SVGS_RESULT', {
+      ...result,
+      frameworks: payload.frameworks
+    })
   })
 }

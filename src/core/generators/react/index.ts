@@ -17,7 +17,7 @@ export function generateReactIcons(icons: OptimizedIcon[]): GeneratedFile[] {
   const files: GeneratedFile[] = []
 
   // Add shared types file
-  files.push({ path: 'icons/types.ts', contents: TYPES_FILE })
+  files.push({ path: 'types.ts', contents: TYPES_FILE })
 
   // Generate each icon component
   for (const icon of icons) {
@@ -27,14 +27,14 @@ export function generateReactIcons(icons: OptimizedIcon[]): GeneratedFile[] {
       viewBox,
       children
     })
-    files.push({ path: `icons/${icon.fileName}.tsx`, contents: code })
+    files.push({ path: `${icon.fileName}.tsx`, contents: code })
   }
 
   // Generate barrel index for tree-shaking (named exports only)
   const exports = icons
     .map((i) => `export { ${i.componentName} } from './${i.fileName}'`)
     .join('\n')
-  files.push({ path: 'icons/index.ts', contents: exports + '\n' })
+  files.push({ path: 'index.ts', contents: exports + '\n' })
 
   return files
 }
