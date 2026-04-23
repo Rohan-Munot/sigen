@@ -14,6 +14,11 @@ import { ActionsSection } from './sections/actions-section.js'
 import { SelectionSection } from './sections/selection-section.js'
 import { optimizeSvg } from '../utils/optimize-svg.js'
 import { validateName } from '../utils/svg-name.js'
+import { toComponentName, toFileName } from '../core/utils/naming.js'
+import { generateReactIcons } from '../core/generators/react/index.js'
+import { generateReactNativeIcons } from '../core/generators/react-native/index.js'
+import type { GeneratedFile } from '../core/generators/react/index.js'
+import { createZip, downloadZip } from '../core/packaging/zip.js'
 
 export function Root () {
   const [nodes, setNodes] = useState<SelectionFrameNode[]>([])
@@ -30,11 +35,23 @@ export function Root () {
 
   useEffect(() => {
     const unsubscribe = on<ExportSvgsResultEvent>('EXPORT_SVGS_RESULT', (payload) => {
-      for (const icon of payload.icons) {
-        console.log(`[SVGO][before] ${icon.name}`, icon.svg)
-        const optimized = optimizeSvg(icon.svg)
-        console.log(`[SVGO][after] ${icon.name}`, optimized)
-      }
+      // Optimize SVGs and derive component/file names
+      const optimized = payload.icons.map((icon) => ({
+        nodeId: icon.nodeId,
+        name: icon.name,
+        svg: optimizeSvg(icon.svg),
+        componentName: toComponentName(icon.name),
+        fileName: toFileName(icon.name)
+      }))
+
+      const reactFiles = generateReactIcons(optimized)
+      const reactNativeFiles = generateReactNativeIcons(optimized)
+      const files: GeneratedFile[] = [
+        ...reactFiles.map((file) => ({ ...file, path: `react/${file.path}` })),
+        ...reactNativeFiles.map((file) => ({ ...file, path: `react-native/${file.path}` }))
+      ]
+      const zip = createZip(files)
+      downloadZip(zip, 'icons.zip')
     })
     return unsubscribe
   }, [])

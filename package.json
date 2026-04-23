@@ -2,6 +2,7 @@
   "dependencies": {
     "@create-figma-plugin/ui": "^4.0.3",
     "@create-figma-plugin/utilities": "^4.0.3",
+    "fflate": "^0.8.2",
     "preact": ">=10",
     "svgo": "^4.0.1"
   },

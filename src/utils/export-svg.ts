@@ -19,7 +19,7 @@ export async function exportSvgs(): Promise<{
 
   for (const node of selection) {
     if (!isExportable(node)) {
-      errors.push({ nodeId: node.id, message: 'Node is not exportable' })
+      errors.push({ nodeId: (node as any).id, message: 'Node is not exportable' })
       continue
     }
 

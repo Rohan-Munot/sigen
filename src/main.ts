@@ -1,6 +1,6 @@
 import { emit, on, showUI } from '@create-figma-plugin/utilities'
-import { pushSelectionFrames } from './main/push-selection.js'
-import { exportSvgs } from './main/export-svg.js'
+import { pushSelectionFrames } from './utils/push-selection.js'
+import { exportSvgs } from './utils/export-svg.js'
 import type {
   UIReadyEvent,
   ExportSvgsRequestEvent,
