@@ -33,7 +33,7 @@ export function PublishButton (props: PublishButtonProps) {
         backgroundColor
       }}
     >
-      Publish
+      Download
     </button>
   )
 }
