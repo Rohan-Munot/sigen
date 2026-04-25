@@ -35,14 +35,18 @@ export function generateIconComponent(opts: {
 
   return `import * as React from 'react'
 import Svg${namedImports} from 'react-native-svg'
-import type { IconProps } from './types'
 
-const ${componentName} = ({ width = 24, height = 24, colour = '#615F63', ...props }: IconProps) => (
+export type IconProps = {
+  width?: number | string
+  height?: number | string
+  colour?: string
+  [key: string]: unknown
+}
+
+export const ${componentName} = ({ width = 24, height = 24, colour = '#615F63', ...props }: IconProps) => (
   <Svg width={width} height={height} viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     ${nativeChildren}
   </Svg>
 )
-
-export default ${componentName}
 `
 }

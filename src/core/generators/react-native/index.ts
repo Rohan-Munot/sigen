@@ -1,12 +1,18 @@
-import { parseSvg } from '../react/svg-to-jsx'
-import type { GeneratedFile, OptimizedIcon } from '../react'
+import { parseSvg } from './svg-to-jsx'
 import { generateIconComponent } from './template'
-import { TYPES_FILE } from './static-files'
+
+export type GeneratedFile = { path: string; contents: string }
+
+export type OptimizedIcon = {
+  nodeId: string
+  name: string
+  svg: string
+  componentName: string
+  fileName: string
+}
 
 export function generateReactNativeIcons(icons: OptimizedIcon[]): GeneratedFile[] {
   const files: GeneratedFile[] = []
-
-  files.push({ path: 'types.ts', contents: TYPES_FILE })
 
   for (const icon of icons) {
     const { viewBox, children } = parseSvg(icon.svg)
@@ -17,11 +23,6 @@ export function generateReactNativeIcons(icons: OptimizedIcon[]): GeneratedFile[
     })
     files.push({ path: `${icon.fileName}.tsx`, contents: code })
   }
-
-  const exports = icons
-    .map((i) => `export { default as ${i.componentName} } from './${i.fileName}'`)
-    .join('\n')
-  files.push({ path: 'index.ts', contents: exports + '\n' })
 
   return files
 }

@@ -7,7 +7,13 @@ export function generateIconComponent(opts: {
   const { componentName, viewBox, children } = opts
 
   return `import { forwardRef } from 'react'
-import type { IconProps } from './types'
+import type { SVGProps } from 'react'
+
+export type IconProps = SVGProps<SVGSVGElement> & {
+  size?: number | string
+  color?: string
+  strokeWidth?: number | string
+}
 
 export const ${componentName} = forwardRef<SVGSVGElement, IconProps>(
   function ${componentName}({ size = 24, color = '#615F63', strokeWidth = 2, ...props }) {

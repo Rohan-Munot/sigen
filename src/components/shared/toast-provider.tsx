@@ -78,7 +78,7 @@ export function ToastProvider (props: { children: ComponentChildren }) {
   return (
     <toastContext.Provider value={value}>
       {children}
-      <div class="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-1.5 px-3 pt-3">
+      <div class="pointer-events-none absolute inset-x-0 bottom-16 z-30 flex flex-col gap-1.5 px-3 pt-3">
         {toasts.map((toast) => (
           <div
             key={toast.id}

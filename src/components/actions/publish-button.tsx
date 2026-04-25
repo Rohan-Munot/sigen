@@ -28,20 +28,9 @@ export function PublishButton (props: PublishButtonProps) {
       onMouseLeave={() => { setHovered(false); setPressed(false) }}
       onMouseDown={() => setPressed(true)}
       onMouseUp={() => setPressed(false)}
+      className={`w-full rounded-md border-none appearance-none px-3 py-2 h-9 text-[13px] leading-4 font-semibold text-white transition-colors duration-120 ${disabled ? 'cursor-not-allowed opacity-[0.85]' : 'cursor-pointer'}`}
       style={{
-        width: '100%',
-        padding: '8px 12px',
-        borderRadius: '6px',
-        border: 'none',
-        appearance: 'none',
-        fontSize: '13px',
-        fontWeight: 600,
-        lineHeight: '16px',
-        color: '#ffffff',
-        backgroundColor,
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.85 : 1,
-        transition: 'background-color 120ms ease'
+        backgroundColor
       }}
     >
       Publish
